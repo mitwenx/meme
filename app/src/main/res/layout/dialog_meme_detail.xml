@@ -3,91 +3,89 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="?attr/colorSurface">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorSurface"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationContentDescription="@string/back"
+        tools:title="Meme Name" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageViewDialogMeme"
+        android:id="@+id/imageViewDetailMeme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/meme_description"
         android:scaleType="fitCenter"
-        android:minHeight="200dp"
-        android:layout_marginBottom="12dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        android:padding="@dimen/spacing_sm"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Overlay.MemesJi.MemeCard"
         tools:srcCompat="@drawable/ic_placeholder_image" />
-
-    <TextView
-        android:id="@+id/textViewDialogMemeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceTitleMedium"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        tools:text="Meme Name Here" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_lg">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonDialogDownload"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="match_parent"
+            android:id="@+id/buttonBrowser"
+            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/download"
-            app:icon="@drawable/ic_download" />
+            android:layout_marginEnd="@dimen/spacing_lg"
+            android:tooltipText="@string/open_in_browser"
+            app:icon="@drawable/ic_open_in_browser"
+            app:iconSize="@dimen/button_icon_size" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonDialogShare"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:id="@+id/buttonShare"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginEnd="@dimen/spacing_lg"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:text="@string/share"
-            app:icon="@drawable/ic_share" />
-
-         <com.google.android.material.button.MaterialButton
-             android:id="@+id/buttonDialogOpenBrowser"
-             style="?attr/materialButtonOutlinedStyle"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="8dp"
-             android:text="@string/open_in_browser"
-             app:icon="@drawable/ic_open_in_browser" />
-
+            app:icon="@drawable/ic_share"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:iconGravity="textStart" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonDialogBack"
-            style="?attr/materialButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            app:icon="@drawable/ic_arrow_back" />
+            android:id="@+id/buttonDownload"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/download"
+            app:icon="@drawable/ic_download"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:iconGravity="textStart" />
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBarDialogShare"
-        style="?android:attr/progressBarStyleSmall"
+    <FrameLayout
+        android:id="@+id/layoutShareProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:padding="@dimen/spacing_2xl"
         android:visibility="gone"
-        android:layout_marginTop="8dp"
-        tools:visibility="visible"/>
+        tools:visibility="visible">
 
-    <TextView
-        android:id="@+id/textViewDialogShareStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:layout_marginTop="4dp"
-        tools:text="Preparing image..."
-        tools:visibility="visible"/>
-
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:indeterminate="true"
+            android:visibility="visible"
+            app:indicatorColor="?attr/colorPrimary"
+            app:trackThickness="4dp" />
+    </FrameLayout>
 </LinearLayout>

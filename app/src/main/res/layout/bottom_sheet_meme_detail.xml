@@ -5,79 +5,103 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="?attr/colorSurface"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    android:padding="@dimen/bottom_sheet_padding"
+    android:background="?attr/colorSurfaceContainerHigh">
+
+    <View
+        android:layout_width="@dimen/bottom_sheet_handle_width"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/spacing_lg"
+        android:background="@drawable/bg_bottom_sheet_handle" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/bottomSheetMemeImage"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="@dimen/bottom_sheet_image_height"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:layout_marginBottom="12dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        android:layout_marginBottom="@dimen/spacing_md"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Overlay.MemesJi.MemeCard"
         tools:srcCompat="@drawable/ic_placeholder_image" />
 
     <TextView
         android:id="@+id/bottomSheetMemeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textAppearance="?attr/textAppearanceTitleLarge"
         android:gravity="center"
-        android:layout_marginBottom="16dp"
-        tools:text="Meme Name" />
+        android:layout_marginBottom="@dimen/spacing_2xl"
+        tools:text="Funny Cat Meme" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bottomSheetButtonFullScreen"
-        style="?attr/materialButtonOutlinedStyle"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="@dimen/button_height"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:layout_marginBottom="@dimen/spacing_sm"
         android:text="@string/open_full_page"
-        app:icon="@drawable/ic_open_in_browser" />
+        app:icon="@drawable/ic_open_in_browser"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:iconGravity="textStart" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bottomSheetButtonDownload"
-        style="?attr/materialButtonOutlinedStyle"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="@dimen/button_height"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:layout_marginBottom="@dimen/spacing_sm"
         android:text="@string/download"
-        app:icon="@drawable/ic_download" />
+        app:icon="@drawable/ic_download"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:iconGravity="textStart" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bottomSheetButtonShare"
-        style="?attr/materialButtonOutlinedStyle"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="@dimen/button_height"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:layout_marginBottom="@dimen/spacing_sm"
         android:text="@string/share"
-        app:icon="@drawable/ic_share" />
+        app:icon="@drawable/ic_share"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:iconGravity="textStart" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bottomSheetButtonBrowser"
-        style="?attr/materialButtonOutlinedStyle"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         android:text="@string/open_in_browser"
-        app:icon="@drawable/ic_open_in_browser" />
+        app:icon="@drawable/ic_open_in_browser"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:iconGravity="textStart" />
 
     <FrameLayout
         android:id="@+id/layoutShareProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/spacing_sm"
         android:gravity="center"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBarDialogShare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:indeterminate="true"
-            android:visibility="gone" />
+            android:visibility="visible"
+            app:indicatorColor="?attr/colorPrimary"
+            app:trackThickness="3dp" />
 
     </FrameLayout>
-
 </LinearLayout>

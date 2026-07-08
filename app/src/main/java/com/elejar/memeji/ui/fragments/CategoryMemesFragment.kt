@@ -26,7 +26,6 @@ import com.elejar.memeji.ui.MainActivity
 import com.elejar.memeji.ui.adapter.MemeAdapter
 import com.elejar.memeji.viewmodel.MemeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.launch
 
@@ -174,7 +173,7 @@ class CategoryMemesFragment : Fragment() {
      private fun showMemeDetailDialog(meme: Meme) {
           detailDialog?.dismiss()
 
-          val bottomSheet = BottomSheetDialog(requireContext())
+          val bottomSheet = BottomSheetDialog(requireContext(), R.style.ThemeOverlay_MemesJi_BottomSheetDialog)
           val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_meme_detail, null)
           bottomSheet.setContentView(sheetView)
 

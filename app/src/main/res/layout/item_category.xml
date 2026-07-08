@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView 
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardViewCategory"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp">
+    android:layout_height="@dimen/category_card_height"
+    android:layout_margin="@dimen/card_margin"
+    app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+    app:cardCornerRadius="@dimen/card_corner_radius_category"
+    app:cardElevation="2dp"
+    app:rippleColor="?attr/colorPrimaryContainer"
+    app:strokeWidth="0dp"
+    app:cardUseCompatPadding="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewCategoryImage"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
+            android:layout_height="match_parent"
             android:contentDescription="@string/category_image_description"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Overlay.MemesJi.CategoryCard" />
 
-        <!-- Gradient Scrim for Text Visibility -->
         <View
+            android:id="@+id/gradientOverlay"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/bg_gradient_scrim"
-            app:layout_constraintTop_toTopOf="@id/imageViewCategoryImage"
-            app:layout_constraintBottom_toBottomOf="@id/imageViewCategoryImage" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewCategoryName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
             android:gravity="center"
-            android:shadowColor="#80000000"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="2"
+            android:padding="@dimen/category_text_padding"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -32,18 +32,13 @@ class HomeFragment : Fragment() {
     private val viewModel: MemeViewModel by activityViewModels()
     private lateinit var memeAdapter: MemeAdapter
     private lateinit var layoutManager: StaggeredGridLayoutManager
+    private var detailDialog: BottomSheetDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            binding.swipeRefreshLayout.updatePadding(top = insets.top)
-            view.updatePadding(bottom = insets.bottom)
-            WindowInsetsCompat.CONSUMED
-        }
         return binding.root
     }
 
@@ -76,7 +71,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupSwipeToRefresh() {
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.md_theme_surface)
+        binding.swipeRefreshLayout.setColorSchemeResources(
+            R.color.md_theme_primary,
+            R.color.md_theme_secondary,
+            R.color.md_theme_tertiary
+        )
         binding.swipeRefreshLayout.setOnRefreshListener {
             Log.d("HomeFragment", "Swipe to refresh triggered.")
             viewModel.loadMemes(forceRefresh = true)
@@ -92,8 +91,8 @@ class HomeFragment : Fragment() {
             binding.recyclerViewMemes.isVisible = !isLoading && error == null && hasData
             memeAdapter.submitList(memes)
 
-            binding.textViewNoMemes.isVisible = !isLoading && error == null && !hasData
-            if (binding.textViewNoMemes.isVisible) {
+            binding.emptyState.isVisible = !isLoading && error == null && !hasData
+            if (binding.emptyState.isVisible) {
                 updateNoMemesText()
             }
         }
@@ -112,11 +111,11 @@ class HomeFragment : Fragment() {
             if (!isLoading) {
                 binding.textViewError.isVisible = error != null
                 binding.buttonRetry.isVisible = error != null
-                binding.textViewNoMemes.isVisible = error == null && !hasData
+                binding.emptyState.isVisible = error == null && !hasData
                 if (binding.textViewError.isVisible) {
                     binding.textViewError.text = error ?: getString(R.string.unknown_error)
                 }
-                if (binding.textViewNoMemes.isVisible) {
+                if (binding.emptyState.isVisible) {
                     updateNoMemesText()
                 }
                 binding.recyclerViewMemes.isVisible = error == null && hasData
@@ -135,13 +134,19 @@ class HomeFragment : Fragment() {
 
             if (error != null && !isLoading) {
                 binding.recyclerViewMemes.isVisible = false
-                binding.textViewNoMemes.isVisible = false
+                binding.emptyState.isVisible = false
                 binding.progressBar.isVisible = false
             } else {
                 binding.recyclerViewMemes.isVisible = !isLoading && hasData
-                binding.textViewNoMemes.isVisible = !isLoading && !hasData
-                if (binding.textViewNoMemes.isVisible) updateNoMemesText()
+                binding.emptyState.isVisible = !isLoading && !hasData
+                if (binding.emptyState.isVisible) updateNoMemesText()
                 binding.progressBar.isVisible = isLoading && !binding.swipeRefreshLayout.isRefreshing && !hasData
+            }
+        }
+
+        viewModel.shareStatus.observe(viewLifecycleOwner) { event ->
+            event?.getContentIfNotHandled()?.let { status ->
+                updateShareProgress(status)
             }
         }
     }
@@ -156,7 +161,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun showMemeDetail(meme: Meme) {
-        val bottomSheet = BottomSheetDialog(requireContext())
+        detailDialog?.dismiss()
+
+        val bottomSheet = BottomSheetDialog(requireContext(), R.style.ThemeOverlay_MemesJi_BottomSheetDialog)
         val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_meme_detail, null)
         bottomSheet.setContentView(sheetView)
 
@@ -188,16 +195,60 @@ class HomeFragment : Fragment() {
         }
 
         shareBtn.setOnClickListener {
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.prepareMemeForSharing(meme)
-            }
+            shareMeme(meme)
         }
 
         browserBtn.setOnClickListener {
             (activity as? MainActivity)?.openUrlInBrowser(meme.url)
         }
 
+        bottomSheet.setOnDismissListener {
+            detailDialog = null
+        }
+
+        detailDialog = bottomSheet
         bottomSheet.show()
+    }
+
+    private fun shareMeme(meme: Meme) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.prepareMemeForSharing(meme)
+        }
+    }
+
+    private fun updateShareProgress(status: MemeViewModel.ShareStatus) {
+        detailDialog?.let { dialog ->
+            val progressContainer = dialog.findViewById<android.widget.FrameLayout>(R.id.layoutShareProgress)
+            val progressBar = dialog.findViewById<com.google.android.material.progressindicator.CircularProgressIndicator>(R.id.progressBarDialogShare)
+
+            progressContainer?.isVisible = status.isLoading
+            progressBar?.isVisible = status.isLoading
+        }
+
+        if (!status.isLoading) {
+            if (!status.isError && status.shareUri != null && status.mimeType != null) {
+                startShareIntent(status.shareUri, status.mimeType)
+                viewModel.clearShareIntentUri()
+            } else if (status.isError) {
+                if (!status.message.isNullOrBlank()) {
+                    android.widget.Toast.makeText(context, status.message, android.widget.Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun startShareIntent(imageUri: android.net.Uri, mimeType: String) {
+        try {
+            val shareIntent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
+                type = mimeType
+                putExtra(android.content.Intent.EXTRA_STREAM, imageUri)
+                addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            startActivity(android.content.Intent.createChooser(shareIntent, getString(R.string.share_via)))
+        } catch (e: Exception) {
+            Log.e("HomeFragment", "Error starting share intent", e)
+            android.widget.Toast.makeText(context, getString(R.string.share_error), android.widget.Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -206,7 +257,14 @@ class HomeFragment : Fragment() {
         layoutManager.spanCount = spanCount
     }
 
+    override fun onPause() {
+        super.onPause()
+        detailDialog?.dismiss()
+    }
+
     override fun onDestroyView() {
+        detailDialog?.dismiss()
+        detailDialog = null
         super.onDestroyView()
         binding.recyclerViewMemes.adapter = null
         _binding = null

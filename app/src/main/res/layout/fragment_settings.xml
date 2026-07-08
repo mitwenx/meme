@@ -4,48 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     android:clipToPadding="false"
-    android:paddingBottom="16dp"
+    android:paddingBottom="@dimen/spacing_5xl"
     tools:context=".ui.fragments.SettingsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="@dimen/spacing_lg"
+        android:paddingTop="@dimen/spacing_2xl">
 
-        <!-- Use list_header if needed, e.g., for sections -->
-        <include
-            layout="@layout/list_header"
+        <TextView
             android:id="@+id/headerGeneral"
-             />
-        <!-- Ensure headerGeneral's text is set in SettingsFragment.kt if used -->
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/spacing_sm"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorPrimary"
+            android:text="@string/settings_general_header" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true">
+            app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+            app:cardCornerRadius="@dimen/card_corner_radius_meme"
+            app:cardElevation="0dp"
+            app:strokeWidth="0.5dp"
+            app:strokeColor="?attr/colorOutlineVariant">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp">
+                android:paddingHorizontal="@dimen/spacing_lg"
+                android:paddingVertical="@dimen/spacing_lg">
+
+                <ImageView
+                    android:id="@+id/cutieModeIcon"
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_favorite"
+                    app:tint="?attr/colorSecondary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textViewCutieModeTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    android:layout_marginStart="@dimen/spacing_md"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    android:textAppearance="?attr/textAppearanceTitleSmall"
                     android:textColor="?attr/colorOnSurface"
                     android:text="@string/settings_cutie_mode_title"
                     app:layout_constraintEnd_toStartOf="@+id/switchCutieModeSettings"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cutieModeIcon"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switchCutieModeSettings"
@@ -59,41 +75,50 @@
                     android:id="@+id/textViewCutieModeDesc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="16dp"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:layout_marginStart="@dimen/spacing_md"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    android:textAppearance="?attr/textAppearanceBodySmall"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:text="@string/settings_cutie_mode_summary"
-                    app:layout_constraintEnd_toStartOf="@+id/switchCutieModeSettings"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cutieModeIcon"
                     app:layout_constraintTop_toBottomOf="@+id/textViewCutieModeTitle" />
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
-        <include
-            layout="@layout/list_header"
-            android:id="@+id/headerTheme" />
+        <TextView
+            android:id="@+id/headerTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/spacing_2xl"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorPrimary"
+            android:text="@string/settings_theme_header" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true">
+            app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+            app:cardCornerRadius="@dimen/card_corner_radius_meme"
+            app:cardElevation="0dp"
+            app:strokeWidth="0.5dp"
+            app:strokeColor="?attr/colorOutlineVariant">
 
             <RadioGroup
                 android:id="@+id/radioGroupTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp">
+                android:paddingVertical="@dimen/spacing_sm">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioThemeSystem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/spacing_lg"
+                    android:paddingVertical="@dimen/spacing_sm"
                     android:text="@string/settings_theme_system"
                     android:textAppearance="?attr/textAppearanceBodyLarge" />
 
@@ -101,6 +126,8 @@
                     android:id="@+id/radioThemeLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/spacing_lg"
+                    android:paddingVertical="@dimen/spacing_sm"
                     android:text="@string/settings_theme_light"
                     android:textAppearance="?attr/textAppearanceBodyLarge" />
 
@@ -108,11 +135,11 @@
                     android:id="@+id/radioThemeDark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/spacing_lg"
+                    android:paddingVertical="@dimen/spacing_sm"
                     android:text="@string/settings_theme_dark"
                     android:textAppearance="?attr/textAppearanceBodyLarge" />
-
             </RadioGroup>
-
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>

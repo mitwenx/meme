@@ -4,46 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:fitsSystemWindows="true"
     tools:context=".ui.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorSurface"
+        android:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <!-- android:theme="@style/ThemeOverlay.App.Toolbar" -->
-        <!-- app:popupTheme="@style/ThemeOverlay.App.PopupToolbar" -->
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/toolbar_menu"
+        app:title="@string/app_name"
+        app:titleTextColor="?attr/colorOnSurface"
+        app:titleTextAppearance="?attr/textAppearanceTitleLarge" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name" /> <!-- Default title -->
-
-    </com.google.android.material.appbar.AppBarLayout>
+    <View
+        android:id="@+id/toolbarShadow"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutlineVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="?attr/colorSurface"
         app:defaultNavHost="true"
-        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav_view"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarShadow"
         app:navGraph="@navigation/nav_graph" />
+
+    <View
+        android:id="@+id/bottomNavShadow"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutlineVariant"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="?attr/colorSurfaceContainerHigh"
+        app:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled" /> <!-- Or selected based on design preference -->
+        app:labelVisibilityMode="labeled"
+        app:itemIconSize="@dimen/bottom_nav_icon_size"
+        app:itemTextAppearanceActive="?attr/textAppearanceLabelMedium"
+        app:itemTextAppearanceInactive="?attr/textAppearanceLabelSmall"
+        app:itemActiveIndicatorStyle="@style/Widget.MemesJi.BottomNav.ActiveIndicator"
+        app:itemRippleColor="?attr/colorPrimaryContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

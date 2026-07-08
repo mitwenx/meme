@@ -1,127 +1,185 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.MemesJi" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
+        <!-- Expressive Color Roles -->
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
-        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/md_theme_secondary</item>
         <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
         <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
         <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
-        <!-- Tertiary brand color. -->
         <item name="colorTertiary">@color/md_theme_tertiary</item>
         <item name="colorOnTertiary">@color/md_theme_onTertiary</item>
         <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer</item>
         <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer</item>
-        <!-- Error color. -->
         <item name="colorError">@color/md_theme_error</item>
         <item name="colorOnError">@color/md_theme_onError</item>
         <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
         <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer</item>
-        <!-- Background colors. -->
         <item name="android:colorBackground">@color/md_theme_background</item>
         <item name="colorOnBackground">@color/md_theme_onBackground</item>
-        <!-- Surface colors. -->
         <item name="colorSurface">@color/md_theme_surface</item>
         <item name="colorOnSurface">@color/md_theme_onSurface</item>
         <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant</item>
         <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
-        <!-- Outline color. -->
         <item name="colorOutline">@color/md_theme_outline</item>
         <item name="colorOutlineVariant">@color/md_theme_outlineVariant</item>
-        <!-- Inverse colors. -->
         <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
 
-        <!-- Customize your theme here. -->
+        <!-- Expressive Shape Roles -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MemesJi.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MemesJi.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MemesJi.LargeComponent</item>
+
+        <!-- Expressive Typography -->
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.MemesJi.DisplayLarge</item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.MemesJi.DisplayMedium</item>
+        <item name="textAppearanceDisplaySmall">@style/TextAppearance.MemesJi.DisplaySmall</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.MemesJi.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.MemesJi.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.MemesJi.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.MemesJi.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.MemesJi.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.MemesJi.TitleSmall</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.MemesJi.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.MemesJi.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.MemesJi.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.MemesJi.LabelLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.MemesJi.LabelMedium</item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.MemesJi.LabelSmall</item>
+
+        <!-- Surface & Background -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:enforceNavigationBarContrast" tools:targetApi="q">false</item>
         <item name="android:enforceStatusBarContrast" tools:targetApi="q">false</item>
 
-         <!-- Window Transitions (Optional) -->
+        <!-- Window Transitions -->
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowEnterTransition">@android:transition/fade</item>
         <item name="android:windowExitTransition">@android:transition/fade</item>
 
-        <!-- Component Styles -->
-        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
-        <item name="materialCardViewStyle">@style/Widget.App.CardView</item>
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
-
+        <!-- Component Styles - Premium Material 3 -->
+        <item name="toolbarStyle">@style/Widget.MemesJi.Toolbar</item>
+        <item name="bottomNavigationStyle">@style/Widget.MemesJi.BottomNavigationView</item>
+        <item name="materialCardViewStyle">@style/Widget.MemesJi.CardView</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MemesJi.MaterialAlertDialog</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.MemesJi.BottomSheetDialog</item>
+        <item name="actionMenuTextColor">@color/md_theme_onSurface</item>
     </style>
 
     <style name="Theme.MemesJi" parent="Base.Theme.MemesJi" />
 
-    <!-- Component Styles -->
-    <style name="Widget.App.Toolbar" parent="Widget.Material3.Toolbar.Surface">
-        <!-- Apply the theme overlay to the toolbar -->
-        <item name="android:theme">@style/ThemeOverlay.App.Toolbar</item>
-        <!-- Use popupTheme for the overflow menu -->
-        <!-- Using Material3 popup theme appropriate for dark background -->
+    <!-- Toolbar Style -->
+    <style name="Widget.MemesJi.Toolbar" parent="Widget.Material3.Toolbar.Surface">
+        <item name="android:theme">@style/ThemeOverlay.MemesJi.Toolbar</item>
         <item name="popupTheme">@style/ThemeOverlay.Material3.Dark</item>
     </style>
 
-    <!-- Toolbar Theme Overlay using Material 3 parent -->
-    <style name="ThemeOverlay.App.Toolbar" parent="ThemeOverlay.Material3.Toolbar.Surface">
-        <!-- Sets color for icons like back, search, overflow -->
-        <item name="colorControlNormal">@android:color/white</item>
-        <!-- Set title text color to white -->
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <!-- Optional: Set subtitle text color if needed (e.g., slightly transparent white) -->
-        <!-- <item name="android:textColorSecondary">#B3FFFFFF</item> -->
+    <style name="ThemeOverlay.MemesJi.Toolbar" parent="ThemeOverlay.Material3.Toolbar.Surface">
+        <item name="colorControlNormal">?attr/colorOnSurface</item>
+        <item name="android:textColorPrimary">?attr/colorOnSurface</item>
     </style>
 
-    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+    <!-- Bottom Navigation -->
+    <style name="Widget.MemesJi.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.MemesJi.BottomNav.ActiveIndicator</item>
+        <item name="itemRippleColor">?attr/colorPrimaryContainer</item>
     </style>
 
-     <style name="Widget.App.CardView" parent="Widget.Material3.CardView.Elevated">
-         <item name="cardCornerRadius">12dp</item>
-     </style>
+    <style name="Widget.MemesJi.BottomNav.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorPrimaryContainer</item>
+    </style>
+
+    <!-- CardView -->
+    <style name="Widget.MemesJi.CardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="contentPadding">0dp</item>
+    </style>
+
+    <!-- Expressive shape for cards -->
+    <style name="ShapeAppearance.MemesJi.Card" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- Shape Appearances -->
+    <style name="ShapeAppearance.MemesJi.SmallComponent" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerSize">8dp</item>
+    </style>
+    <style name="ShapeAppearance.MemesJi.MediumComponent" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerSize">16dp</item>
+    </style>
+    <style name="ShapeAppearance.MemesJi.LargeComponent" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerSize">28dp</item>
+    </style>
 
     <!-- Dialog Theme -->
-    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+    <style name="ThemeOverlay.MemesJi.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="colorPrimary">?attr/colorPrimary</item>
         <item name="colorSecondary">?attr/colorSecondary</item>
         <item name="colorSurface">?attr/colorSurfaceContainerHigh</item>
         <item name="colorOnSurface">?attr/colorOnSurface</item>
-        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
-        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
-        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text</item>
-        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
-        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
-        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button.TextButton</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.MemesJi</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.MemesJi.Title.Text</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.MemesJi.Body.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.MemesJi.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.MemesJi.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.MemesJi.Button.TextButton</item>
     </style>
 
-    <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.Material3">
-        <item name="shapeAppearance">@style/ShapeAppearance.App.Dialog</item>
+    <style name="MaterialAlertDialog.MemesJi" parent="MaterialAlertDialog.Material3">
+        <item name="shapeAppearance">@style/ShapeAppearance.MemesJi.Dialog</item>
     </style>
 
-     <style name="ShapeAppearance.App.Dialog" parent="ShapeAppearance.Material3.LargeComponent">
+    <style name="ShapeAppearance.MemesJi.Dialog" parent="ShapeAppearance.Material3.Corner.Large">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">28dp</item>
     </style>
 
-    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
+    <style name="MaterialAlertDialog.MemesJi.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
     </style>
 
-    <style name="MaterialAlertDialog.App.Body.Text" parent="MaterialAlertDialog.Material3.Body.Text">
+    <style name="MaterialAlertDialog.MemesJi.Body.Text" parent="MaterialAlertDialog.Material3.Body.Text">
     </style>
 
-     <style name="Widget.App.Button" parent="Widget.Material3.Button">
+    <style name="Widget.MemesJi.Button" parent="Widget.Material3.Button">
     </style>
-     <style name="Widget.App.Button.TextButton" parent="Widget.Material3.Button.TextButton">
-     </style>
 
-     <style name="DialogAnimation">
+    <style name="Widget.MemesJi.Button.TextButton" parent="Widget.Material3.Button.TextButton">
+    </style>
+
+    <!-- Bottom Sheet Dialog Theme -->
+    <style name="ThemeOverlay.MemesJi.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.MemesJi.BottomSheet</item>
+    </style>
+
+    <style name="Widget.MemesJi.BottomSheet" parent="Widget.Material3.BottomSheet">
+        <item name="shapeAppearance">@style/ShapeAppearance.MemesJi.BottomSheet</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
+    </style>
+
+    <style name="ShapeAppearance.MemesJi.BottomSheet" parent="ShapeAppearance.Material3.Corner.Top">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">28dp</item>
+        <item name="cornerSizeTopRight">28dp</item>
+    </style>
+
+    <!-- Dialog animation -->
+    <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
+    <!-- SearchView style -->
+    <style name="Widget.MemesJi.SearchView" parent="Widget.Material3.SearchView">
+        <item name="android:textColorHint">?attr/colorOnSurfaceVariant</item>
+    </style>
 </resources>

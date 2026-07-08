@@ -110,4 +110,5 @@
     <string name="cannot_share_cutie">Cannot share this meme in Cutie Mode</string>
     <string name="cannot_download_cutie">Cannot download this meme in Cutie Mode</string>
     <string name="changelog_not_available">No changelog available.</string>
+    <string name="font_family_default">sans-serif</string>
 </resources>

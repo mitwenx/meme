@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     tools:context=".ui.fragments.CategoriesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -11,43 +12,61 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingHorizontal="@dimen/grid_padding_horizontal"
+        android:paddingTop="@dimen/spacing_lg"
+        android:paddingBottom="@dimen/spacing_5xl"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_category"
         tools:spanCount="2" />
 
-    <!-- Progress Indicator centered -->
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_bar_categories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:indeterminate="true"
         android:visibility="gone"
-        tools:visibility="visible"/>
+        app:indicatorColor="?attr/colorPrimary"
+        app:trackThickness="4dp"
+        tools:visibility="visible" />
 
-    <!-- Empty State -->
-    <TextView
-        android:id="@+id/text_view_no_categories"
+    <LinearLayout
+        android:id="@+id/emptyStateCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/no_categories_found"
-        android:textAppearance="?attr/textAppearanceBodyLarge"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_2xl"
         android:visibility="gone"
-        tools:visibility="gone" />
+        tools:visibility="visible">
 
-    <!-- Error State -->
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_categories"
+            app:tint="?attr/colorOnSurfaceVariant" />
+
+        <TextView
+            android:id="@+id/text_view_no_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_lg"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:text="@string/no_categories_found" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/spacing_2xl">
 
         <TextView
             android:id="@+id/text_view_error_categories"
@@ -58,18 +77,20 @@
             android:textColor="?attr/colorError"
             android:visibility="gone"
             tools:text="Failed to load categories."
-            tools:visibility="gone"/>
+            tools:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_retry_categories"
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/spacing_lg"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:text="@string/retry"
+            app:cornerRadius="@dimen/button_corner_radius"
             android:visibility="gone"
             tools:visibility="visible" />
 
     </LinearLayout>
-
 </FrameLayout>

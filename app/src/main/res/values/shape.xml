@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shape Appearance Overlays for specific use cases -->
+
+    <!-- Bottom Sheet - rounded top corners -->
+    <style name="ShapeAppearance.Overlay.MemesJi.BottomSheet" parent="ShapeAppearance.Material3.Corner.Top">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">28dp</item>
+        <item name="cornerSizeTopRight">28dp</item>
+    </style>
+
+    <!-- Category Card - extra rounded -->
+    <style name="ShapeAppearance.Overlay.MemesJi.CategoryCard" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <!-- Meme Card - medium rounded -->
+    <style name="ShapeAppearance.Overlay.MemesJi.MemeCard" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <!-- Image inside card - matching top corners -->
+    <style name="ShapeAppearance.Overlay.MemesJi.ImageTop" parent="ShapeAppearance.Material3.Corner.Top">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">12dp</item>
+        <item name="cornerSizeTopRight">12dp</item>
+    </style>
+
+    <!-- Button - fully rounded -->
+    <style name="ShapeAppearance.Overlay.MemesJi.Button" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <!-- Dialog - large rounded -->
+    <style name="ShapeAppearance.Overlay.MemesJi.Dialog" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+</resources>

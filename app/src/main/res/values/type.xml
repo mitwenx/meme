@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Display styles - Extra Large, Bold -->
+    <style name="TextAppearance.MemesJi.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="android:textSize">57sp</item>
+        <item name="android:lineHeight">64sp</item>
+        <item name="android:letterSpacing">-0.0025</item>
+        <item name="android:fontFamily">@string/font_family_default</item>
+        <item name="android:fontWeight">800</item>
+    </style>
+
+    <style name="TextAppearance.MemesJi.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="android:textSize">45sp</item>
+        <item name="android:lineHeight">52sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:fontWeight">800</item>
+    </style>
+
+    <style name="TextAppearance.MemesJi.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:textSize">36sp</item>
+        <item name="android:lineHeight">44sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:fontWeight">700</item>
+    </style>
+
+    <!-- Headline styles - Large, Bold -->
+    <style name="TextAppearance.MemesJi.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:textSize">32sp</item>
+        <item name="android:lineHeight">40sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:fontWeight">700</item>
+    </style>
+
+    <style name="TextAppearance.MemesJi.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textSize">28sp</item>
+        <item name="android:lineHeight">36sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:fontWeight">700</item>
+    </style>
+
+    <style name="TextAppearance.MemesJi.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineHeight">32sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:fontWeight">600</item>
+    </style>
+
+    <!-- Title styles - Medium Weight -->
+    <style name="TextAppearance.MemesJi.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">22sp</item>
+        <item name="android:lineHeight">28sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:fontWeight">600</item>
+    </style>
+
+    <style name="TextAppearance.MemesJi.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">24sp</item>
+        <item name="android:letterSpacing">0.0015</item>
+        <item name="android:fontWeight">600</item>
+    </style>
+
+    <style name="TextAppearance.MemesJi.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">20sp</item>
+        <item name="android:letterSpacing">0.001</item>
+        <item name="android:fontWeight">600</item>
+    </style>
+
+    <!-- Body styles -->
+    <style name="TextAppearance.MemesJi.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">24sp</item>
+        <item name="android:letterSpacing">0.005</item>
+    </style>
+
+    <style name="TextAppearance.MemesJi.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">20sp</item>
+        <item name="android:letterSpacing">0.0025</item>
+    </style>
+
+    <style name="TextAppearance.MemesJi.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">16sp</item>
+        <item name="android:letterSpacing">0.004</item>
+    </style>
+
+    <!-- Label styles -->
+    <style name="TextAppearance.MemesJi.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">20sp</item>
+        <item name="android:letterSpacing">0.001</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+
+    <style name="TextAppearance.MemesJi.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">16sp</item>
+        <item name="android:letterSpacing">0.005</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+
+    <style name="TextAppearance.MemesJi.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineHeight">16sp</item>
+        <item name="android:letterSpacing">0.005</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+</resources>

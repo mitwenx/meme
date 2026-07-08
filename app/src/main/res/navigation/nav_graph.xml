@@ -10,6 +10,7 @@
         android:name="com.elejar.memeji.ui.fragments.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.elejar.memeji.ui.fragments.CategoriesFragment"
@@ -18,24 +19,12 @@
         <action
             android:id="@+id/action_categoriesFragment_to_categoryMemesFragment"
             app:destination="@id/categoryMemesFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
-    <fragment
-        android:id="@+id/moreFragment"
-        android:name="com.elejar.memeji.ui.fragments.MoreFragment"
-        android:label="@string/title_more"
-        tools:layout="@layout/fragment_more">
-        <action
-            android:id="@+id/action_moreFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
+
     <fragment
         android:id="@+id/categoryMemesFragment"
         android:name="com.elejar.memeji.ui.fragments.CategoryMemesFragment"
@@ -45,6 +34,21 @@
             android:name="categoryName"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.elejar.memeji.ui.fragments.MoreFragment"
+        android:label="@string/title_more"
+        tools:layout="@layout/fragment_more">
+        <action
+            android:id="@+id/action_moreFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.elejar.memeji.ui.fragments.SettingsFragment"

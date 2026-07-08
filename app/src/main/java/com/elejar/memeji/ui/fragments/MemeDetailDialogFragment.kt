@@ -45,7 +45,7 @@ class MemeDetailDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+        setStyle(STYLE_NORMAL, R.style.Theme_MemesJi)
         currentMeme = arguments?.getParcelable(ARG_MEME)
     }
 

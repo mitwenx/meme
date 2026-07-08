@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView 
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardViewMeme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="12dp"
+    android:layout_margin="@dimen/card_margin"
+    app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+    app:cardCornerRadius="@dimen/card_corner_radius_meme"
     app:cardElevation="2dp"
-    app:strokeWidth="0dp">
+    app:strokeWidth="0.5dp"
+    app:strokeColor="?attr/colorOutlineVariant"
+    app:rippleColor="?attr/colorPrimaryContainer"
+    app:cardUseCompatPadding="true">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageViewMeme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@string/meme_image_description"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Overlay.MemesJi.MemeCard" />
 
 </com.google.android.material.card.MaterialCardView>

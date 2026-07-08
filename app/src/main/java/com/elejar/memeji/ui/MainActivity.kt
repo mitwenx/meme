@@ -1,14 +1,9 @@
 package com.elejar.memeji.ui
 
 import android.Manifest
-import android.app.DownloadManager
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
@@ -20,7 +15,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -31,8 +29,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.elejar.memeji.R
 import com.elejar.memeji.data.Meme
 import com.elejar.memeji.databinding.ActivityMainBinding
-import com.elejar.memeji.ui.fragments.CategoryMemesFragment
-import com.elejar.memeji.ui.fragments.MoreFragmentDirections // Import directions
+import com.elejar.memeji.ui.fragments.MoreFragmentDirections
 import com.elejar.memeji.viewmodel.MemeViewModel
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.snackbar.Snackbar
@@ -49,11 +46,10 @@ class MainActivity : AppCompatActivity() {
             if (isGranted) {
                 Log.i("Permission", "Storage permission granted")
                 viewModel.executePendingDownloadAction()
-
             } else {
                 Log.e("Permission", "Storage permission denied")
-                Snackbar.make(binding.root, getString(R.string.permission_denied_message), Snackbar.LENGTH_LONG).show()
-                 viewModel.clearPendingDownloadAction()
+                showSnackbar(getString(R.string.permission_denied_message))
+                viewModel.clearPendingDownloadAction()
             }
         }
 
@@ -64,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -80,9 +77,23 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavView.setupWithNavController(navController)
 
-        navController.addOnDestinationChangedListener { _, destination, arguments ->
-            binding.toolbar.isVisible = true
+        setupWindowInsets()
+        setupDestinationListener()
+        setupMenuProvider()
+        observeViewModel()
+    }
 
+    private fun setupWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            binding.toolbar.updatePadding(top = insets.top)
+            binding.bottomNavView.updatePadding(bottom = insets.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
+    }
+
+    private fun setupDestinationListener() {
+        navController.addOnDestinationChangedListener { _, destination, arguments ->
             when (destination.id) {
                 R.id.homeFragment -> {
                     viewModel.switchToHomeView()
@@ -91,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.categoriesFragment -> {
                     supportActionBar?.title = getString(R.string.title_categories)
                 }
-                 R.id.moreFragment -> {
+                R.id.moreFragment -> {
                     supportActionBar?.title = getString(R.string.title_more)
                 }
                 R.id.categoryMemesFragment -> {
@@ -106,21 +117,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            val bottomNavView = binding.bottomNavView
             when (destination.id) {
                 R.id.categoryMemesFragment -> {
-                    bottomNavView.menu.findItem(R.id.categoriesFragment)?.isChecked = true
+                    binding.bottomNavView.menu.findItem(R.id.categoriesFragment)?.isChecked = true
                 }
                 R.id.settingsFragment -> {
-                    bottomNavView.menu.findItem(R.id.moreFragment)?.isChecked = true
+                    binding.bottomNavView.menu.findItem(R.id.moreFragment)?.isChecked = true
                 }
             }
 
-             invalidateMenu()
+            invalidateMenu()
         }
-
-        setupMenuProvider()
-        observeViewModel()
     }
 
     private fun setupMenuProvider() {
@@ -128,7 +135,7 @@ class MainActivity : AppCompatActivity() {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.main_menu, menu)
                 val searchItem = menu.findItem(R.id.action_search)
-                val settingsItem = menu.findItem(R.id.action_settings_toolbar) // Get settings item
+                val settingsItem = menu.findItem(R.id.action_settings_toolbar)
                 val searchView = searchItem?.actionView as? SearchView
 
                 val currentDestinationId = navController.currentDestination?.id
@@ -137,12 +144,12 @@ class MainActivity : AppCompatActivity() {
                         currentDestinationId == R.id.categoryMemesFragment ||
                         currentDestinationId == R.id.categoriesFragment
 
-                val showSettings = currentDestinationId == R.id.moreFragment // Show only on More screen
+                val showSettings = currentDestinationId == R.id.moreFragment
 
                 searchItem?.isVisible = showSearch
-                settingsItem?.isVisible = showSettings // Control visibility
+                settingsItem?.isVisible = showSettings
 
-                if(showSearch) {
+                if (showSearch) {
                     searchView?.queryHint = when (currentDestinationId) {
                         R.id.categoriesFragment -> getString(R.string.search_categories_hint)
                         else -> getString(R.string.search_hint)
@@ -172,22 +179,19 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle settings icon click
                 if (menuItem.itemId == R.id.action_settings_toolbar) {
-                    // Ensure we are on the MoreFragment before navigating
                     if (navController.currentDestination?.id == R.id.moreFragment) {
-                         navController.navigate(MoreFragmentDirections.actionMoreFragmentToSettingsFragment())
+                        navController.navigate(MoreFragmentDirections.actionMoreFragmentToSettingsFragment())
                     }
                     return true
-                 }
+                }
                 return false
             }
         }, this, Lifecycle.State.RESUMED)
     }
 
-
     fun requestStoragePermission(actionToRun: () -> Unit) {
-         viewModel.setPendingDownloadAction(actionToRun)
+        viewModel.setPendingDownloadAction(actionToRun)
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             when {
@@ -196,20 +200,16 @@ class MainActivity : AppCompatActivity() {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED -> {
                     Log.i("Permission", "Storage permission already granted (pre-Q)")
-                     viewModel.executePendingDownloadAction()
+                    viewModel.executePendingDownloadAction()
                 }
 
                 shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
-                    Snackbar.make(
-                        binding.root,
-                        getString(R.string.permission_rationale),
-                        Snackbar.LENGTH_INDEFINITE
+                    showSnackbar(
+                        message = getString(R.string.permission_rationale),
+                        actionLabel = getString(R.string.ok),
+                        action = { requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE) }
                     )
-                        .setAction(getString(R.string.ok)) {
-                            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        }
-                        .show()
-                     viewModel.clearPendingDownloadAction()
+                    viewModel.clearPendingDownloadAction()
                 }
 
                 else -> {
@@ -218,10 +218,9 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             Log.i("Permission", "No legacy WRITE permission needed for Android 10+ for Downloads.")
-             viewModel.executePendingDownloadAction()
+            viewModel.executePendingDownloadAction()
         }
     }
-
 
     private fun handleSearch(query: String?) {
         val currentDestinationId = navController.currentDestination?.id
@@ -229,8 +228,8 @@ class MainActivity : AppCompatActivity() {
             R.id.homeFragment, R.id.categoryMemesFragment -> viewModel.setSearchQuery(query)
             R.id.categoriesFragment -> viewModel.setCategorySearchQuery(query)
             else -> {
-                 viewModel.setSearchQuery(null)
-                 viewModel.setCategorySearchQuery(null)
+                viewModel.setSearchQuery(null)
+                viewModel.setCategorySearchQuery(null)
             }
         }
     }
@@ -253,10 +252,19 @@ class MainActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.singleMemeDownloadStatus.observe(this) { status ->
             status?.let {
-                 Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
-                 viewModel.clearSingleMemeDownloadStatus()
+                showSnackbar(it)
+                viewModel.clearSingleMemeDownloadStatus()
             }
         }
+    }
+
+    private fun showSnackbar(message: String, actionLabel: String? = null, action: (() -> Unit)? = null) {
+        val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+        if (actionLabel != null && action != null) {
+            snackbar.setAction(actionLabel) { action() }
+        }
+        snackbar.setAnchorView(binding.bottomNavView)
+        snackbar.show()
     }
 
     fun openUrlInBrowser(url: String?) {
@@ -265,7 +273,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
         try {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url))
             startActivity(intent)
         } catch (e: android.content.ActivityNotFoundException) {
             Log.e("MainActivity", "No browser found to handle URL: $url", e)
