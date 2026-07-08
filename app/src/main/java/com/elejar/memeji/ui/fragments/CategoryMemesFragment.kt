@@ -1,6 +1,5 @@
 package com.elejar.memeji.ui.fragments
 
-import android.app.Dialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
@@ -39,7 +38,7 @@ class CategoryMemesFragment : Fragment() {
     private val args: CategoryMemesFragmentArgs by navArgs()
     private lateinit var memeAdapter: MemeAdapter
     private lateinit var layoutManager: StaggeredGridLayoutManager
-    private var detailDialog: Dialog? = null
+    private var detailDialog: BottomSheetDialog? = null
     // Removed categoryDownloadDialog variable
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +64,7 @@ class CategoryMemesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        setupRetryButton()
         observeViewModel()
         viewModel.loadMemesForCategory(args.categoryName)
         viewModel.setSearchQuery(null)
@@ -85,6 +85,12 @@ class CategoryMemesFragment : Fragment() {
         }
     }
 
+    private fun setupRetryButton() {
+        binding.buttonRetryCategoryMemes.setOnClickListener {
+            viewModel.loadMemesForCategory(args.categoryName)
+        }
+    }
+
     private fun observeViewModel() {
         viewModel.filteredMemes.observe(viewLifecycleOwner) { memes ->
             val isLoading = viewModel.isLoading.value ?: false
@@ -94,6 +100,7 @@ class CategoryMemesFragment : Fragment() {
             binding.progressBarCategoryMemes.isVisible = isLoading && !hasData
             binding.textViewNoCategoryMemes.isVisible = !isLoading && !hasData && error == null
             binding.textViewErrorCategoryMemes.isVisible = !isLoading && error != null
+            binding.buttonRetryCategoryMemes.isVisible = !isLoading && error != null
             binding.recyclerViewCategoryMemes.isVisible = hasData && error == null
 
             memeAdapter.submitList(memes)
@@ -112,12 +119,13 @@ class CategoryMemesFragment : Fragment() {
 
              binding.loadingIndicatorCategory.isVisible = isLoading
              binding.progressBarCategoryMemes.isVisible = isLoading && !hasData
-             if (!isLoading) {
-                 binding.textViewNoCategoryMemes.isVisible = !hasData && error == null
-                 binding.textViewErrorCategoryMemes.isVisible = error != null
-                 binding.recyclerViewCategoryMemes.isVisible = hasData && error == null
-                 if(binding.textViewNoCategoryMemes.isVisible) updateNoMemesText()
-                 if(binding.textViewErrorCategoryMemes.isVisible) binding.textViewErrorCategoryMemes.text = error ?: getString(R.string.unknown_error)
+              if (!isLoading) {
+                  binding.textViewNoCategoryMemes.isVisible = !hasData && error == null
+                  binding.textViewErrorCategoryMemes.isVisible = error != null
+                  binding.buttonRetryCategoryMemes.isVisible = error != null
+                  binding.recyclerViewCategoryMemes.isVisible = hasData && error == null
+                  if(binding.textViewNoCategoryMemes.isVisible) updateNoMemesText()
+                  if(binding.textViewErrorCategoryMemes.isVisible) binding.textViewErrorCategoryMemes.text = error ?: getString(R.string.unknown_error)
              } else {
                   if (!hasData) {
                       binding.textViewNoCategoryMemes.isVisible = false
@@ -132,16 +140,17 @@ class CategoryMemesFragment : Fragment() {
              val showErrorView = error != null && !isLoading
 
              binding.textViewErrorCategoryMemes.isVisible = showErrorView
-             binding.recyclerViewCategoryMemes.isVisible = !showErrorView || hasData
-             binding.progressBarCategoryMemes.isVisible = isLoading && !hasData
+              binding.buttonRetryCategoryMemes.isVisible = showErrorView
+              binding.recyclerViewCategoryMemes.isVisible = !showErrorView || hasData
+              binding.progressBarCategoryMemes.isVisible = isLoading && !hasData
 
-             if (showErrorView) {
-                 binding.textViewErrorCategoryMemes.text = error ?: getString(R.string.unknown_error)
-                 binding.textViewNoCategoryMemes.isVisible = false
-             } else if (!isLoading && !hasData) {
-                 binding.textViewNoCategoryMemes.isVisible = true
-                 updateNoMemesText()
-             }
+              if (showErrorView) {
+                  binding.textViewErrorCategoryMemes.text = error ?: getString(R.string.unknown_error)
+                  binding.textViewNoCategoryMemes.isVisible = false
+              } else if (!isLoading && !hasData) {
+                  binding.textViewNoCategoryMemes.isVisible = true
+                  updateNoMemesText()
+              }
          }
 
           viewModel.shareStatus.observe(viewLifecycleOwner) { event ->
@@ -225,15 +234,15 @@ class CategoryMemesFragment : Fragment() {
 
               progressContainer?.isVisible = status.isLoading
               progressBar?.isVisible = status.isLoading
+          }
 
-              if (!status.isLoading) {
-                  if (!status.isError && status.shareUri != null && status.mimeType != null) {
-                      startShareIntent(status.shareUri, status.mimeType)
-                      viewModel.clearShareIntentUri()
-                  } else if (status.isError) {
-                      if (!status.message.isNullOrBlank()) {
-                          Toast.makeText(context, status.message, Toast.LENGTH_SHORT).show()
-                      }
+          if (!status.isLoading) {
+              if (!status.isError && status.shareUri != null && status.mimeType != null) {
+                  startShareIntent(status.shareUri, status.mimeType)
+                  viewModel.clearShareIntentUri()
+              } else if (status.isError) {
+                  if (!status.message.isNullOrBlank()) {
+                      Toast.makeText(context, status.message, Toast.LENGTH_SHORT).show()
                   }
               }
           }

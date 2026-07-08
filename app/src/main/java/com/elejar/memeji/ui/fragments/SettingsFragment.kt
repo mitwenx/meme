@@ -70,7 +70,9 @@ class SettingsFragment : Fragment() {
             }
             PreferencesHelper.setThemeMode(requireContext(), mode)
             AppCompatDelegate.setDefaultNightMode(mode)
-            requireActivity().recreate()
+            if (isAdded) {
+                requireActivity().recreate()
+            }
         }
     }
 

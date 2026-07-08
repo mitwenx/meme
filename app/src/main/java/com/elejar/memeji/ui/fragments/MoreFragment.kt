@@ -183,7 +183,7 @@ class MoreFragment : Fragment() {
             if (appInfo != null && appInfo.showDownload) {
                 binding.textViewUpdateVersion.text = getString(R.string.version_info_format, appInfo.version ?: "N/A")
                 binding.textViewUpdateDate.text = getString(R.string.release_date_format, appInfo.buildDate ?: "N/A")
-                binding.textViewChangelog.text = appInfo.changelog ?: "No changelog available."
+                binding.textViewChangelog.text = appInfo.changelog ?: getString(R.string.changelog_not_available)
                 binding.buttonDownloadUpdate.setOnClickListener {
                     appInfo.downloadUrl?.let { url -> openUrl(url) }
                         ?: Toast.makeText(context, R.string.could_not_open_link, Toast.LENGTH_SHORT).show()

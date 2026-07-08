@@ -273,7 +273,7 @@ class MemeViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun prepareMemeForSharing(meme: Meme) {
         if (_isCutieModeEnabled.value == true && meme.tags.any { it.equals(MemeRepository.SENSITIVE_TAG, ignoreCase = true) }) {
-            _shareStatus.postValue(Event(ShareStatus("Cannot share this meme in Cutie Mode", isLoading = false, isError = true)))
+            _shareStatus.postValue(Event(ShareStatus(getString(R.string.cannot_share_cutie), isLoading = false, isError = true)))
             return
         }
 
@@ -303,7 +303,7 @@ class MemeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun downloadMeme(meme: Meme) {
         if (_isCutieModeEnabled.value == true && meme.tags.any { it.equals(MemeRepository.SENSITIVE_TAG, ignoreCase = true) }) {
-            _singleMemeDownloadStatus.value = "Cannot download this meme in Cutie Mode"
+            _singleMemeDownloadStatus.value = getString(R.string.cannot_download_cutie)
             clearStatusAfterDelay(_singleMemeDownloadStatus, 4000L)
             return
         }

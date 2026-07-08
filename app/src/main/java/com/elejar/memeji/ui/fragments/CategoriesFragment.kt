@@ -43,7 +43,14 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupRetryButton()
         observeViewModel()
+    }
+
+    private fun setupRetryButton() {
+        binding.buttonRetryCategories.setOnClickListener {
+            viewModel.loadMemes(forceRefresh = true)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -72,6 +79,7 @@ class CategoriesFragment : Fragment() {
             binding.progressBarCategories.isVisible = isLoading && !hasData
             binding.textViewNoCategories.isVisible = !isLoading && !hasData && error == null
             binding.textViewErrorCategories.isVisible = !isLoading && error != null
+            binding.buttonRetryCategories.isVisible = !isLoading && error != null
             binding.recyclerViewCategories.isVisible = hasData && error == null
 
             categoryAdapter.submitList(categories)
@@ -89,13 +97,14 @@ class CategoriesFragment : Fragment() {
              val error = viewModel.error.value
              binding.progressBarCategories.isVisible = isLoading && !hasData
              // Only show error/empty text when *not* loading, unless there's already data
-             if (!isLoading) {
-                 binding.textViewNoCategories.isVisible = !hasData && error == null
-                 binding.textViewErrorCategories.isVisible = error != null
-                 binding.recyclerViewCategories.isVisible = hasData && error == null
-                 if(binding.textViewNoCategories.isVisible) updateNoCategoriesText()
-                 if(binding.textViewErrorCategories.isVisible) binding.textViewErrorCategories.text = error ?: getString(R.string.unknown_error)
-             } else {
+              if (!isLoading) {
+                  binding.textViewNoCategories.isVisible = !hasData && error == null
+                  binding.textViewErrorCategories.isVisible = error != null
+                  binding.buttonRetryCategories.isVisible = error != null
+                  binding.recyclerViewCategories.isVisible = hasData && error == null
+                  if(binding.textViewNoCategories.isVisible) updateNoCategoriesText()
+                  if(binding.textViewErrorCategories.isVisible) binding.textViewErrorCategories.text = error ?: getString(R.string.unknown_error)
+              } else {
                  // While loading, hide error/empty text if there's no data yet
                  if (!hasData) {
                      binding.textViewNoCategories.isVisible = false
@@ -110,17 +119,18 @@ class CategoriesFragment : Fragment() {
              val hasData = !(viewModel.filteredCategories.value.isNullOrEmpty())
              val showErrorView = error != null && !isLoading
 
-             binding.textViewErrorCategories.isVisible = showErrorView
-             binding.recyclerViewCategories.isVisible = !showErrorView || hasData 
-             binding.progressBarCategories.isVisible = isLoading && !hasData 
+              binding.textViewErrorCategories.isVisible = showErrorView
+              binding.buttonRetryCategories.isVisible = showErrorView
+              binding.recyclerViewCategories.isVisible = !showErrorView || hasData 
+              binding.progressBarCategories.isVisible = isLoading && !hasData 
 
-             if (showErrorView) {
-                 binding.textViewErrorCategories.text = error ?: getString(R.string.unknown_error)
-                 binding.textViewNoCategories.isVisible = false 
-             } else if (!isLoading && !hasData) {
-                 binding.textViewNoCategories.isVisible = true
-                 updateNoCategoriesText()
-             }
+              if (showErrorView) {
+                  binding.textViewErrorCategories.text = error ?: getString(R.string.unknown_error)
+                  binding.textViewNoCategories.isVisible = false 
+              } else if (!isLoading && !hasData) {
+                  binding.textViewNoCategories.isVisible = true
+                  updateNoCategoriesText()
+              }
          }
     }
 

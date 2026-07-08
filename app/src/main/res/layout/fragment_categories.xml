@@ -41,17 +41,35 @@
         tools:visibility="gone" />
 
     <!-- Error State -->
-    <TextView
-        android:id="@+id/text_view_error_categories"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:padding="16dp"
-        android:textAppearance="?attr/textAppearanceBodyLarge"
-        android:textColor="?attr/colorError"
-        android:visibility="gone"
-        tools:text="Failed to load categories."
-        tools:visibility="gone"/>
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/text_view_error_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textColor="?attr/colorError"
+            android:visibility="gone"
+            tools:text="Failed to load categories."
+            tools:visibility="gone"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_retry_categories"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/retry"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </LinearLayout>
 
 </FrameLayout>

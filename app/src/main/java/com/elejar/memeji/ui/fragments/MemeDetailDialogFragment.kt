@@ -122,18 +122,16 @@ class MemeDetailDialogFragment : DialogFragment() {
 
     private fun observeViewModel() {
         viewModel.shareStatus.observe(viewLifecycleOwner) { event ->
-            event?.peekContent()?.let { status ->
+            event?.getContentIfNotHandled()?.let { status ->
                 binding.layoutShareProgress.isVisible = status.isLoading
                 
-                if(!status.isLoading) {
-                    event.getContentIfNotHandled()?.let { finalStatus ->
-                         if (!finalStatus.isError && finalStatus.shareUri != null && finalStatus.mimeType != null) {
-                            startShareIntent(finalStatus.shareUri, finalStatus.mimeType)
-                            viewModel.clearShareIntentUri()
-                        } else if (finalStatus.isError) {
-                             if (!finalStatus.message.isNullOrBlank()) {
-                                 Toast.makeText(context, finalStatus.message, Toast.LENGTH_SHORT).show()
-                             }
+                if (!status.isLoading) {
+                    if (!status.isError && status.shareUri != null && status.mimeType != null) {
+                        startShareIntent(status.shareUri, status.mimeType)
+                        viewModel.clearShareIntentUri()
+                    } else if (status.isError) {
+                        if (!status.message.isNullOrBlank()) {
+                            Toast.makeText(context, status.message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

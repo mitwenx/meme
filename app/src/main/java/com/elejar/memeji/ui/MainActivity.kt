@@ -36,7 +36,6 @@ import com.elejar.memeji.ui.fragments.MoreFragmentDirections // Import direction
 import com.elejar.memeji.viewmodel.MemeViewModel
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.snackbar.Snackbar
-import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
 
@@ -249,12 +248,6 @@ class MainActivity : AppCompatActivity() {
         requestStoragePermission {
             viewModel.downloadMeme(meme)
         }
-    }
-
-    fun makeFilenameSafe(input: String): String {
-        val pattern = Pattern.compile("[^a-zA-Z0-9-_\\.]")
-        val safe = pattern.matcher(input).replaceAll("_")
-        return safe.take(100)
     }
 
     private fun observeViewModel() {

@@ -22,10 +22,19 @@ object RetrofitInstance {
     }
 
     val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor) // Interceptor added conditionally based on level set above
+        .addInterceptor(loggingInterceptor)
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor { chain ->
+            val original = chain.request()
+            val request = original.newBuilder()
+                .header("User-Agent", "Meme-ji/1.0")
+                .method(original.method, original.body)
+                .build()
+            chain.proceed(request)
+        }
+        .retryOnConnectionFailure(true)
         .build()
 
     private val gson = GsonBuilder()

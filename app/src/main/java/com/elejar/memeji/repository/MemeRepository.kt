@@ -228,21 +228,13 @@ class MemeRepository(
             } else {
                 val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                 downloadsDir.mkdirs()
-                val file = File(downloadsDir, fileName)
+                var targetFile = File(downloadsDir, fileName)
                 var fileCounter = 1
-                while (file.exists()) {
+                while (targetFile.exists()) {
                     val nameWithoutExt = sanitizedName + "_$fileCounter"
                     val newFileName = "$nameWithoutExt.$extension"
-                    val newFile = File(downloadsDir, newFileName)
-                    if (!newFile.exists()) {
-                        break
-                    }
+                    targetFile = File(downloadsDir, newFileName)
                     fileCounter++
-                }
-                val targetFile = if (file.exists()) {
-                    File(downloadsDir, "${sanitizedName}_$fileCounter.$extension")
-                } else {
-                    file
                 }
 
                 FileOutputStream(targetFile).use { output ->

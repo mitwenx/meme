@@ -103,4 +103,11 @@
     <!-- This ID 'check_for_update_desc_error' matches what we put in strings, 
          but code was looking for 'error_checking_update'. I will update code to match this ID. -->
     <string name="check_for_update_desc_error">Error checking for update</string>
+
+    <!-- Missing hardcoded strings fixed -->
+    <string name="retry">Retry</string>
+    <string name="open_full_page">Open Full Page</string>
+    <string name="cannot_share_cutie">Cannot share this meme in Cutie Mode</string>
+    <string name="cannot_download_cutie">Cannot download this meme in Cutie Mode</string>
+    <string name="changelog_not_available">No changelog available.</string>
 </resources>

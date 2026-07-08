@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Open Full Page"
+        android:text="@string/open_full_page"
         app:icon="@drawable/ic_open_in_browser" />
 
     <com.google.android.material.button.MaterialButton
