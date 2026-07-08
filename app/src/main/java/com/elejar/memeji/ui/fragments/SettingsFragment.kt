@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -40,7 +41,9 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.headerGeneral.headerText.setText(R.string.settings_general_header)
+        binding.headerTheme.headerText.setText(R.string.settings_theme_header)
         setupSwitch()
+        setupThemeSection()
         observeViewModel()
     }
 
@@ -48,6 +51,26 @@ class SettingsFragment : Fragment() {
         binding.switchCutieModeSettings.isChecked = PreferencesHelper.isCutieModeEnabled(requireContext())
         binding.switchCutieModeSettings.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateCutieMode(isChecked)
+        }
+    }
+
+    private fun setupThemeSection() {
+        val currentMode = PreferencesHelper.getThemeMode(requireContext())
+        when (currentMode) {
+            AppCompatDelegate.MODE_NIGHT_NO -> binding.radioThemeLight.isChecked = true
+            AppCompatDelegate.MODE_NIGHT_YES -> binding.radioThemeDark.isChecked = true
+            else -> binding.radioThemeSystem.isChecked = true
+        }
+
+        binding.radioGroupTheme.setOnCheckedChangeListener { _, checkedId ->
+            val mode = when (checkedId) {
+                R.id.radioThemeLight -> AppCompatDelegate.MODE_NIGHT_NO
+                R.id.radioThemeDark -> AppCompatDelegate.MODE_NIGHT_YES
+                else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            }
+            PreferencesHelper.setThemeMode(requireContext(), mode)
+            AppCompatDelegate.setDefaultNightMode(mode)
+            requireActivity().recreate()
         }
     }
 

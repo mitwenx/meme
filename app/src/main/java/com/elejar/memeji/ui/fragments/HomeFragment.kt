@@ -12,12 +12,18 @@ import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.elejar.memeji.R
 import com.elejar.memeji.data.Meme
 import com.elejar.memeji.databinding.FragmentHomeBinding
 import com.elejar.memeji.ui.adapter.MemeAdapter
+import com.elejar.memeji.ui.MainActivity
 import com.elejar.memeji.viewmodel.MemeViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -25,7 +31,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MemeViewModel by activityViewModels()
     private lateinit var memeAdapter: MemeAdapter
-    private lateinit var layoutManager: GridLayoutManager
+    private lateinit var layoutManager: StaggeredGridLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,13 +66,12 @@ class HomeFragment : Fragment() {
             showMemeDetail(meme)
         }
 
-        val spanCount = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 5 else 3
-        layoutManager = GridLayoutManager(context, spanCount)
+        val spanCount = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 4 else 2
+        layoutManager = StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
 
         binding.recyclerViewMemes.apply {
             adapter = memeAdapter
             layoutManager = this@HomeFragment.layoutManager
-            setHasFixedSize(true)
         }
     }
 
@@ -96,6 +101,8 @@ class HomeFragment : Fragment() {
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             val error = viewModel.error.value
             val hasData = !(viewModel.filteredMemes.value.isNullOrEmpty())
+
+            binding.loadingIndicator.isVisible = isLoading
 
             if (!isLoading) {
                 binding.swipeRefreshLayout.isRefreshing = false
@@ -149,13 +156,53 @@ class HomeFragment : Fragment() {
     }
 
     private fun showMemeDetail(meme: Meme) {
-        val dialog = MemeDetailDialogFragment.newInstance(meme)
-        dialog.show(childFragmentManager, MemeDetailDialogFragment.TAG)
+        val bottomSheet = BottomSheetDialog(requireContext())
+        val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_meme_detail, null)
+        bottomSheet.setContentView(sheetView)
+
+        val imageView = sheetView.findViewById<android.widget.ImageView>(R.id.bottomSheetMemeImage)
+        val nameText = sheetView.findViewById<android.widget.TextView>(R.id.bottomSheetMemeName)
+        val fullScreenBtn = sheetView.findViewById<com.google.android.material.button.MaterialButton>(R.id.bottomSheetButtonFullScreen)
+        val downloadBtn = sheetView.findViewById<com.google.android.material.button.MaterialButton>(R.id.bottomSheetButtonDownload)
+        val shareBtn = sheetView.findViewById<com.google.android.material.button.MaterialButton>(R.id.bottomSheetButtonShare)
+        val browserBtn = sheetView.findViewById<com.google.android.material.button.MaterialButton>(R.id.bottomSheetButtonBrowser)
+
+        nameText.text = meme.name
+
+        Glide.with(this)
+            .load(meme.url)
+            .placeholder(R.drawable.ic_placeholder_image)
+            .error(R.drawable.ic_placeholder_image)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .fitCenter()
+            .into(imageView)
+
+        fullScreenBtn.setOnClickListener {
+            bottomSheet.dismiss()
+            val dialog = MemeDetailDialogFragment.newInstance(meme)
+            dialog.show(childFragmentManager, MemeDetailDialogFragment.TAG)
+        }
+
+        downloadBtn.setOnClickListener {
+            (activity as? MainActivity)?.downloadMeme(meme)
+        }
+
+        shareBtn.setOnClickListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.prepareMemeForSharing(meme)
+            }
+        }
+
+        browserBtn.setOnClickListener {
+            (activity as? MainActivity)?.openUrlInBrowser(meme.url)
+        }
+
+        bottomSheet.show()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        val spanCount = if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) 5 else 3
+        val spanCount = if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) 4 else 2
         layoutManager.spanCount = spanCount
     }
 

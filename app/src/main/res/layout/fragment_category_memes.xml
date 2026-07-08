@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.CategoryMemesFragment">
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/loading_indicator_category"
+        style="@style/Widget.Material3.ProgressIndicator.Linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_category_memes"
         android:layout_width="match_parent"
@@ -15,9 +24,9 @@
         android:paddingEnd="4dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         tools:listitem="@layout/item_meme"
-        tools:spanCount="3" />
+        tools:spanCount="2" />
 
     <!-- Progress Indicator centered -->
     <com.google.android.material.progressindicator.CircularProgressIndicator

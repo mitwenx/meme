@@ -73,5 +73,47 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <include
+            layout="@layout/list_header"
+            android:id="@+id/headerTheme" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true">
+
+            <RadioGroup
+                android:id="@+id/radioGroupTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radioThemeSystem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_theme_system"
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radioThemeLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_theme_light"
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radioThemeDark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_theme_dark"
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+            </RadioGroup>
+
+        </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
 </ScrollView>

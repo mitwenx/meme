@@ -78,12 +78,16 @@
     <string name="settings_general_header">General</string>
     <string name="settings_cutie_mode_title">Cutie Mode</string>
     <string name="settings_cutie_mode_summary">Filter out memes tagged as 18+</string>
-    
+    <string name="settings_theme_header">Theme</string>
+    <string name="settings_theme_system">System default</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+
     <!-- URLs -->
     <string name="url_report_bug">https://github.com/ele-jar/Meme-ji/issues</string>
     <string name="url_translate">https://github.com/ele-jar/Meme-ji</string>
     <string name="url_developer_profile">https://github.com/ele-jar</string>
-    
+
     <!-- Sharing App -->
     <string name="share_app_subject">Check out Meme ji!</string>
     <string name="share_app_text">Check out Meme ji, the best app for browsing memes! https://github.com/ele-jar/Meme-ji</string>

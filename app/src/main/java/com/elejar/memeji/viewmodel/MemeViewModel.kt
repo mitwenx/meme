@@ -277,7 +277,7 @@ class MemeViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
 
-        _shareStatus.postValue(Event(ShareStatus(getString(R.string.preparing_share), isLoading = true)))
+        _shareStatus.postValue(Event(ShareStatus(null, isLoading = true)))
         val downloadResult = repository.downloadImageToCache(meme.url)
 
         downloadResult.onSuccess { fileFromCache ->

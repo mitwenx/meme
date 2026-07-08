@@ -109,19 +109,12 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:indeterminateTint="@android:color/white" />
+            app:indicatorColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/textViewShareStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/preparing_share"
-            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

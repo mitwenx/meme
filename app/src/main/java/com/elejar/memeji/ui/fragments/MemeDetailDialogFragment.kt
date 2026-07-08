@@ -124,9 +124,7 @@ class MemeDetailDialogFragment : DialogFragment() {
         viewModel.shareStatus.observe(viewLifecycleOwner) { event ->
             event?.peekContent()?.let { status ->
                 binding.layoutShareProgress.isVisible = status.isLoading
-                binding.textViewShareStatus.text = status.message ?: ""
                 
-                // Consume event if we are ready to share or if it's an error
                 if(!status.isLoading) {
                     event.getContentIfNotHandled()?.let { finalStatus ->
                          if (!finalStatus.isError && finalStatus.shareUri != null && finalStatus.mimeType != null) {

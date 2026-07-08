@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?attr/colorSurface"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/bottomSheetMemeImage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="12dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        tools:srcCompat="@drawable/ic_placeholder_image" />
+
+    <TextView
+        android:id="@+id/bottomSheetMemeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        tools:text="Meme Name" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bottomSheetButtonFullScreen"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Open Full Page"
+        app:icon="@drawable/ic_open_in_browser" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bottomSheetButtonDownload"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/download"
+        app:icon="@drawable/ic_download" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bottomSheetButtonShare"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/share"
+        app:icon="@drawable/ic_share" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bottomSheetButtonBrowser"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/open_in_browser"
+        app:icon="@drawable/ic_open_in_browser" />
+
+    <FrameLayout
+        android:id="@+id/layoutShareProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBarDialogShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+</LinearLayout>

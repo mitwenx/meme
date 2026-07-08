@@ -8,35 +8,28 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.FileProvider
-import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.elejar.memeji.R
 import com.elejar.memeji.data.Meme
-
 import com.elejar.memeji.databinding.FragmentCategoryMemesBinding
 import com.elejar.memeji.ui.MainActivity
 import com.elejar.memeji.ui.adapter.MemeAdapter
 import com.elejar.memeji.viewmodel.MemeViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.launch
-import java.io.File
 
 class CategoryMemesFragment : Fragment() {
 
@@ -45,7 +38,7 @@ class CategoryMemesFragment : Fragment() {
     private val viewModel: MemeViewModel by activityViewModels()
     private val args: CategoryMemesFragmentArgs by navArgs()
     private lateinit var memeAdapter: MemeAdapter
-    private lateinit var layoutManager: GridLayoutManager
+    private lateinit var layoutManager: StaggeredGridLayoutManager
     private var detailDialog: Dialog? = null
     // Removed categoryDownloadDialog variable
 
@@ -83,13 +76,12 @@ class CategoryMemesFragment : Fragment() {
             showMemeDetailDialog(meme)
         }
 
-        val spanCount = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 5 else 3
-        layoutManager = GridLayoutManager(context, spanCount)
+        val spanCount = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 4 else 2
+        layoutManager = StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
 
         binding.recyclerViewCategoryMemes.apply {
             adapter = memeAdapter
             layoutManager = this@CategoryMemesFragment.layoutManager
-            setHasFixedSize(true)
         }
     }
 
@@ -117,6 +109,8 @@ class CategoryMemesFragment : Fragment() {
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
              val hasData = !(viewModel.filteredMemes.value.isNullOrEmpty())
              val error = viewModel.error.value
+
+             binding.loadingIndicatorCategory.isVisible = isLoading
              binding.progressBarCategoryMemes.isVisible = isLoading && !hasData
              if (!isLoading) {
                  binding.textViewNoCategoryMemes.isVisible = !hasData && error == null
@@ -171,54 +165,51 @@ class CategoryMemesFragment : Fragment() {
      private fun showMemeDetailDialog(meme: Meme) {
           detailDialog?.dismiss()
 
-          context?.let { ctx ->
-             val dialog = Dialog(ctx)
-             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-             dialog.setContentView(R.layout.dialog_meme_detail)
-             dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-             dialog.window?.setDimAmount(0.7f)
+          val bottomSheet = BottomSheetDialog(requireContext())
+          val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_meme_detail, null)
+          bottomSheet.setContentView(sheetView)
 
-             dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-             dialog.setCanceledOnTouchOutside(true)
+          val imageView = sheetView.findViewById<android.widget.ImageView>(R.id.bottomSheetMemeImage)
+          val nameText = sheetView.findViewById<android.widget.TextView>(R.id.bottomSheetMemeName)
+          val fullScreenBtn = sheetView.findViewById<com.google.android.material.button.MaterialButton>(R.id.bottomSheetButtonFullScreen)
+          val downloadBtn = sheetView.findViewById<com.google.android.material.button.MaterialButton>(R.id.bottomSheetButtonDownload)
+          val shareBtn = sheetView.findViewById<com.google.android.material.button.MaterialButton>(R.id.bottomSheetButtonShare)
+          val browserBtn = sheetView.findViewById<com.google.android.material.button.MaterialButton>(R.id.bottomSheetButtonBrowser)
 
-             val memeImageView = dialog.findViewById<ImageView>(R.id.imageViewDialogMeme)
-             val memeNameTextView = dialog.findViewById<TextView>(R.id.textViewDialogMemeName)
-             val downloadButton = dialog.findViewById<com.google.android.material.button.MaterialButton>(R.id.buttonDialogDownload)
-             val browserButton = dialog.findViewById<com.google.android.material.button.MaterialButton>(R.id.buttonDialogOpenBrowser)
-             val shareButton = dialog.findViewById<com.google.android.material.button.MaterialButton>(R.id.buttonDialogShare)
-             val backButton = dialog.findViewById<com.google.android.material.button.MaterialButton>(R.id.buttonDialogBack)
+          nameText.text = meme.name
 
-             memeNameTextView.text = meme.name
-             Glide.with(ctx)
-                 .load(meme.url)
-                 .placeholder(R.drawable.ic_placeholder_image)
-                 .error(R.drawable.ic_placeholder_image)
-                 .transition(DrawableTransitionOptions.withCrossFade())
-                 .into(memeImageView)
+          Glide.with(this)
+              .load(meme.url)
+              .placeholder(R.drawable.ic_placeholder_image)
+              .error(R.drawable.ic_placeholder_image)
+              .transition(DrawableTransitionOptions.withCrossFade())
+              .fitCenter()
+              .into(imageView)
 
-             downloadButton.setOnClickListener {
-             (activity as? MainActivity)?.downloadMeme(meme)
-             }
+          fullScreenBtn.setOnClickListener {
+              bottomSheet.dismiss()
+              val dialog = MemeDetailDialogFragment.newInstance(meme)
+              dialog.show(childFragmentManager, MemeDetailDialogFragment.TAG)
+          }
 
-             browserButton.setOnClickListener {
-                 (activity as? MainActivity)?.openUrlInBrowser(meme.url)
-             }
+          downloadBtn.setOnClickListener {
+              (activity as? MainActivity)?.downloadMeme(meme)
+          }
 
-             shareButton.setOnClickListener {
-                  shareMeme(meme)
-             }
+          shareBtn.setOnClickListener {
+              shareMeme(meme)
+          }
 
-             backButton.setOnClickListener {
-                 dialog.dismiss()
-             }
+          browserBtn.setOnClickListener {
+              (activity as? MainActivity)?.openUrlInBrowser(meme.url)
+          }
 
-             dialog.setOnDismissListener {
-                 detailDialog = null
-             }
+          bottomSheet.setOnDismissListener {
+              detailDialog = null
+          }
 
-             detailDialog = dialog
-             dialog.show()
-         }
+          detailDialog = bottomSheet
+          bottomSheet.show()
      }
 
       private fun shareMeme(meme: Meme) {
@@ -229,13 +220,11 @@ class CategoryMemesFragment : Fragment() {
 
        private fun updateShareProgress(status: MemeViewModel.ShareStatus) {
           detailDialog?.let { dialog ->
-              val progressBar = dialog.findViewById<ProgressBar>(R.id.progressBarDialogShare)
-              val statusText = dialog.findViewById<TextView>(R.id.textViewDialogShareStatus)
+              val progressContainer = dialog.findViewById<android.widget.FrameLayout>(R.id.layoutShareProgress)
+              val progressBar = dialog.findViewById<com.google.android.material.progressindicator.CircularProgressIndicator>(R.id.progressBarDialogShare)
 
+              progressContainer?.isVisible = status.isLoading
               progressBar?.isVisible = status.isLoading
-              statusText?.isVisible = !status.message.isNullOrBlank()
-              statusText?.text = status.message ?: ""
-
 
               if (!status.isLoading) {
                   if (!status.isError && status.shareUri != null && status.mimeType != null) {
@@ -268,7 +257,7 @@ class CategoryMemesFragment : Fragment() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        val spanCount = if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) 5 else 3
+        val spanCount = if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) 4 else 2
         layoutManager.spanCount = spanCount
     }
 
