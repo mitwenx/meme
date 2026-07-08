@@ -1,0 +1,13 @@
+package com.elejar.memeji
+
+import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
+
+class MemesJiApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        
+    }
+}

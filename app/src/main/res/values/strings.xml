@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">Meme ji</string>
+
+    <!-- Navigation Titles -->
+    <string name="title_home">Home</string>
+    <string name="title_categories">Categories</string>
+    <string name="title_more">More</string>
+    <string name="title_category_memes">Memes</string>
+    <string name="settings">Settings</string>
+
+    <!-- Search & Menu -->
+    <string name="search_hint">Search memes...</string>
+    <string name="search_categories_hint">Search categories...</string>
+    <string name="action_search">Search</string>
+    <string name="action_settings_toolbar">Settings</string>
+
+    <!-- Meme Detail & Actions -->
+    <string name="meme_description">Meme Image</string>
+    <string name="back">Back</string>
+    <string name="open_in_browser">Browser</string>
+    <string name="download">Download</string>
+    <string name="share">Share</string>
+    <string name="preparing_share">Preparing meme for sharing...</string>
+    <string name="share_via">Share via</string>
+    <string name="share_error">Error sharing meme.</string>
+    <string name="error_preparing_share">Error preparing share</string>
+
+    <!-- Adapters / Accessibility -->
+    <string name="category_image_description">Category Image</string>
+    <string name="meme_image_description">Meme Image</string>
+
+    <!-- Downloads -->
+    <string name="download_started">Downloading %1$s...</string>
+    <string name="download_complete">Download complete!</string>
+    <string name="download_failed">Download failed.</string>
+    <string name="download_failed_single">Download failed for %1$s</string>
+    <string name="permission_denied_message">Storage permission is required to download.</string>
+    <string name="permission_rationale">We need storage permission to save memes.</string>
+    <string name="ok">OK</string>
+
+    <!-- Error & Empty States -->
+    <string name="unknown_error">Unknown error</string>
+    <string name="error_network">Network error. Please check your connection.</string>
+    <string name="no_categories_found">No categories found.</string>
+    <string name="no_categories_match_search">No categories match \"%1$s\".</string>
+    <string name="no_memes_found">No memes found.</string>
+    <string name="no_memes_match_search">No memes match \"%1$s\".</string>
+    <string name="no_memes_in_category">No memes found in %1$s.</string>
+    <string name="could_not_open_link">Could not open link.</string>
+
+    <!-- More Fragment -->
+    <string name="more_header_info">Information</string>
+    <string name="more_header_contribute">Contribute</string>
+    <string name="more_header_more">More</string>
+    <string name="more_header_update">Update</string>
+    <string name="version">Version</string>
+    <string name="developer">Developer</string>
+    <string name="developer_name">Elejar</string>
+    <string name="total_memes_title">Total Memes</string>
+    <string name="total_memes_loading">Loading...</string>
+    <string name="source_code_title">Source Code</string>
+    <string name="source_code_url">github.com/ele-jar/Meme-ji</string>
+    <string name="share_app_title">Share App</string>
+    <string name="share_app_desc">Share this app with friends</string>
+    <string name="more_report_bug">Report a Bug</string>
+    <string name="more_report_bug_desc">Found an issue? Let us know</string>
+    <string name="more_translate">Help Translate</string>
+    <string name="more_translate_desc">Translate the app into other languages</string>
+    <string name="more_settings_desc_action">App settings</string>
+    <string name="more_socials">Socials</string>
+    <string name="more_socials_desc">Connect with us</string>
+
+    <!-- Update Section -->
+    <string name="changelog_title">Changelog</string>
+    <string name="download_update">Download Update</string>
+
+    <!-- Settings Fragment -->
+    <string name="settings_general_header">General</string>
+    <string name="settings_cutie_mode_title">Cutie Mode</string>
+    <string name="settings_cutie_mode_summary">Filter out memes tagged as 18+</string>
+    
+    <!-- URLs -->
+    <string name="url_report_bug">https://github.com/ele-jar/Meme-ji/issues</string>
+    <string name="url_translate">https://github.com/ele-jar/Meme-ji</string>
+    <string name="url_developer_profile">https://github.com/ele-jar</string>
+    
+    <!-- Sharing App -->
+    <string name="share_app_subject">Check out Meme ji!</string>
+    <string name="share_app_text">Check out Meme ji, the best app for browsing memes! https://github.com/ele-jar/Meme-ji</string>
+
+    <!-- Update Checker -->
+    <string name="check_for_update_title">Check for Update</string>
+    <string name="check_for_update_desc">Check for latest version</string>
+    <string name="checking_for_updates">Checking...</string>
+    <string name="version_info_format">Version: %1$s</string>
+    <string name="release_date_format">Released: %1$s</string>
+    <string name="update_available">Update Available</string>
+    <string name="no_update_available">You have the latest version.</string>
+    <!-- This ID 'check_for_update_desc_error' matches what we put in strings, 
+         but code was looking for 'error_checking_update'. I will update code to match this ID. -->
+    <string name="check_for_update_desc_error">Error checking for update</string>
+</resources>
