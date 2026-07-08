@@ -123,7 +123,7 @@ class MemeRepository(
             val request = Request.Builder().url(imageUrl).build()
             val response = okHttpClient.newCall(request).execute()
             if (!response.isSuccessful) {
-                return@withContext Result.failure(IOException("Download failed: ${response.code()}"))
+                return@withContext Result.failure(IOException("Download failed: ${response.code}"))
             }
             val body = response.body ?: return@withContext Result.failure(IOException("Empty response body"))
             val cacheFile = File(context.cacheDir, "glide_cache_${System.nanoTime()}")
@@ -202,7 +202,7 @@ class MemeRepository(
             val request = Request.Builder().url(meme.url).build()
             val response = okHttpClient.newCall(request).execute()
             if (!response.isSuccessful) {
-                return@withContext Result.failure(IOException("Download failed: ${response.code()}"))
+                return@withContext Result.failure(IOException("Download failed: ${response.code}"))
             }
             val body = response.body ?: return@withContext Result.failure(IOException("Empty response body"))
 
