@@ -166,10 +166,15 @@
         <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
     </style>
 
-    <style name="ShapeAppearance.MemesJi.BottomSheet" parent="ShapeAppearance.Material3.Corner.Top">
-        <item name="cornerFamily">rounded</item>
+    <style name="ShapeAppearance.MemesJi.BottomSheet" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerSizeTopLeft">28dp</item>
         <item name="cornerSizeTopRight">28dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
     <!-- Dialog animation -->
@@ -178,8 +183,4 @@
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
-    <!-- SearchView style -->
-    <style name="Widget.MemesJi.SearchView" parent="Widget.Material3.SearchView">
-        <item name="android:textColorHint">?attr/colorOnSurfaceVariant</item>
-    </style>
 </resources>

@@ -3,10 +3,15 @@
     <!-- Shape Appearance Overlays for specific use cases -->
 
     <!-- Bottom Sheet - rounded top corners -->
-    <style name="ShapeAppearance.Overlay.MemesJi.BottomSheet" parent="ShapeAppearance.Material3.Corner.Top">
-        <item name="cornerFamily">rounded</item>
+    <style name="ShapeAppearance.Overlay.MemesJi.BottomSheet" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerSizeTopLeft">28dp</item>
         <item name="cornerSizeTopRight">28dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
     <!-- Category Card - extra rounded -->
@@ -22,10 +27,15 @@
     </style>
 
     <!-- Image inside card - matching top corners -->
-    <style name="ShapeAppearance.Overlay.MemesJi.ImageTop" parent="ShapeAppearance.Material3.Corner.Top">
-        <item name="cornerFamily">rounded</item>
+    <style name="ShapeAppearance.Overlay.MemesJi.ImageTop" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerSizeTopLeft">12dp</item>
         <item name="cornerSizeTopRight">12dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
     <!-- Button - fully rounded -->
