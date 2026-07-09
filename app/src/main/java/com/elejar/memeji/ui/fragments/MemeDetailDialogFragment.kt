@@ -83,7 +83,8 @@ class MemeDetailDialogFragment : DialogFragment() {
 
     private fun setupUI() {
         val meme = currentMeme!!
-        binding.textViewMemeName.text = meme.name
+        binding.toolbar.title = meme.name
+        binding.toolbar.setNavigationOnClickListener { dismiss() }
 
         Glide.with(this)
             .load(meme.url)
@@ -95,10 +96,6 @@ class MemeDetailDialogFragment : DialogFragment() {
     }
 
     private fun setupListeners() {
-        binding.buttonBack.setOnClickListener {
-            dismiss()
-        }
-
         binding.buttonDownload.setOnClickListener {
             currentMeme?.let { meme ->
                 (activity as? MainActivity)?.downloadMeme(meme)

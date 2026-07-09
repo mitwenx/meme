@@ -40,8 +40,8 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.headerGeneral.headerText.setText(R.string.settings_general_header)
-        binding.headerTheme.headerText.setText(R.string.settings_theme_header)
+        binding.headerGeneral.setText(R.string.settings_general_header)
+        binding.headerTheme.setText(R.string.settings_theme_header)
         setupSwitch()
         setupThemeSection()
         observeViewModel()

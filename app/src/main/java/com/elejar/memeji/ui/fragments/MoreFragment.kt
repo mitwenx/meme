@@ -55,10 +55,10 @@ class MoreFragment : Fragment() {
     }
 
     private fun setupHeaders() {
-        binding.headerInfo.headerText.text = getString(R.string.more_header_info)
-        binding.headerContribute.headerText.text = getString(R.string.more_header_contribute)
-        binding.headerMore.headerText.text = getString(R.string.more_header_more)
-        binding.headerUpdate.headerText.text = getString(R.string.more_header_update)
+        binding.headerInfoText.text = getString(R.string.more_header_info)
+        binding.headerContributeText.text = getString(R.string.more_header_contribute)
+        binding.headerMoreText.text = getString(R.string.more_header_more)
+        binding.headerUpdateText.text = getString(R.string.more_header_update)
     }
 
     private fun setupInfoSection() {
