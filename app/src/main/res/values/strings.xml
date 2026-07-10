@@ -13,10 +13,7 @@
     <string name="search_categories_hint">Search categories...</string>
     <string name="action_search">Search</string>
     <string name="action_settings_toolbar">Settings</string>
-    <string name="home_eyebrow">YOUR DAILY DOSE</string>
-    <string name="home_headline">Fresh memes, ready to share</string>
-    <string name="categories_headline">Explore categories</string>
-    <string name="categories_supporting_text">Find exactly the kind of funny you need.</string>
+    <string name="loading_content_description">Loading content</string>
 
     <!-- Meme Detail & Actions -->
     <string name="meme_description">Meme Image</string>
@@ -57,9 +54,6 @@
     <string name="more_header_contribute">Contribute</string>
     <string name="more_header_more">More</string>
     <string name="more_header_update">Update</string>
-    <string name="more_hero_eyebrow">MEME JI</string>
-    <string name="more_hero_title">Make your feed yours</string>
-    <string name="more_hero_supporting_text">Manage the app, contribute, and stay up to date.</string>
     <string name="version">Version</string>
     <string name="developer">Developer</string>
     <string name="developer_name">Elejar</string>

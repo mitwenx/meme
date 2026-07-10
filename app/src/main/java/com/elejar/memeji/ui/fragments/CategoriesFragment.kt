@@ -2,8 +2,6 @@ package com.elejar.memeji.ui.fragments
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +34,6 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        setupSearch()
         setupRetryButton()
         observeViewModel()
     }
@@ -62,17 +59,6 @@ class CategoriesFragment : Fragment() {
             layoutManager = this@CategoriesFragment.layoutManager
             setHasFixedSize(true)
         }
-    }
-
-    private fun setupSearch() {
-        binding.editTextSearchCategories.setText(viewModel.categorySearchQuery.value.orEmpty())
-        binding.editTextSearchCategories.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.setCategorySearchQuery(s?.toString())
-            }
-        })
     }
 
     private fun observeViewModel() {

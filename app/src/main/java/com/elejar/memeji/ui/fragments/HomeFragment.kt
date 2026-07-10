@@ -2,8 +2,6 @@ package com.elejar.memeji.ui.fragments
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +20,7 @@ import com.elejar.memeji.ui.adapter.MemeAdapter
 import com.elejar.memeji.ui.MainActivity
 import com.elejar.memeji.viewmodel.MemeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -44,7 +43,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        setupSearch()
         setupSwipeToRefresh()
         setupRetryButton()
         observeViewModel()
@@ -70,22 +68,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupSearch() {
-        binding.editTextSearchMemes.setText(viewModel.searchQuery.value.orEmpty())
-        binding.editTextSearchMemes.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.setSearchQuery(s?.toString())
-            }
-        })
-    }
-
     private fun setupSwipeToRefresh() {
-        binding.swipeRefreshLayout.setColorSchemeResources(
-            R.color.md_theme_primary,
-            R.color.md_theme_secondary,
-            R.color.md_theme_tertiary
+        binding.swipeRefreshLayout.setColorSchemeColors(
+            MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorPrimary),
+            MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorSecondary),
+            MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorTertiary)
         )
         binding.swipeRefreshLayout.setOnRefreshListener {
             Log.d("HomeFragment", "Swipe to refresh triggered.")
@@ -112,7 +99,9 @@ class HomeFragment : Fragment() {
             val error = viewModel.error.value
             val hasData = !(viewModel.filteredMemes.value.isNullOrEmpty())
 
-            binding.loadingIndicator.isVisible = isLoading
+            // A linear indicator communicates a background refresh; the centered circular
+            // indicator is reserved for the blocking, first-load state below.
+            binding.loadingIndicator.isVisible = isLoading && hasData && !binding.swipeRefreshLayout.isRefreshing
 
             if (!isLoading) {
                 binding.swipeRefreshLayout.isRefreshing = false

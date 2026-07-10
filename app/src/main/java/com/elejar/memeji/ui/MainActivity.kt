@@ -140,8 +140,9 @@ class MainActivity : AppCompatActivity() {
 
                 val currentDestinationId = navController.currentDestination?.id
 
-                // Home and Categories use persistent, accessible search fields in their content.
-                val showSearch = currentDestinationId == R.id.categoryMemesFragment
+                val showSearch = currentDestinationId == R.id.homeFragment ||
+                        currentDestinationId == R.id.categoryMemesFragment ||
+                        currentDestinationId == R.id.categoriesFragment
 
                 val showSettings = currentDestinationId == R.id.moreFragment
 

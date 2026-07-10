@@ -7,13 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/card_margin"
-    app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
     app:cardCornerRadius="@dimen/card_corner_radius_meme"
-    app:cardElevation="2dp"
-    app:strokeWidth="0.5dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
     app:strokeColor="?attr/colorOutlineVariant"
     app:rippleColor="?attr/colorPrimaryContainer"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="false">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageViewMeme"

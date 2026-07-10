@@ -108,7 +108,8 @@ class CategoryMemesFragment : Fragment() {
              val hasData = !(viewModel.filteredMemes.value.isNullOrEmpty())
              val error = viewModel.error.value
 
-             binding.loadingIndicatorCategory.isVisible = isLoading
+              // Preserve visible content during refresh and show progress at the top.
+              binding.loadingIndicatorCategory.isVisible = isLoading && hasData
              binding.progressBarCategoryMemes.isVisible = isLoading && !hasData
               if (!isLoading) {
                   binding.textViewNoCategoryMemes.isVisible = !hasData && error == null
