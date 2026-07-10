@@ -17,12 +17,28 @@
         android:paddingTop="@dimen/spacing_2xl">
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_headline"
+            android:textAppearance="?attr/textAppearanceHeadlineMedium"
+            android:textColor="?attr/colorOnSurface" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:text="@string/settings_supporting_text"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <TextView
             android:id="@+id/headerGeneral"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/spacing_sm"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
-            android:textColor="?attr/colorPrimary"
+            android:paddingTop="@dimen/spacing_2xl"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:text="@string/settings_general_header" />
 
         <com.google.android.material.card.MaterialCardView
@@ -94,8 +110,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/spacing_2xl"
             android:paddingBottom="@dimen/spacing_sm"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
-            android:textColor="?attr/colorPrimary"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:text="@string/settings_theme_header" />
 
         <com.google.android.material.card.MaterialCardView

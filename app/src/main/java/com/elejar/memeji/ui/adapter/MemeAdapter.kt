@@ -23,8 +23,6 @@ class MemeAdapter(
 
     override fun onBindViewHolder(holder: MemeViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.itemView.alpha = 0f
-        holder.itemView.animate().alpha(1f).duration = 300
     }
 
     inner class MemeViewHolder(
@@ -33,6 +31,8 @@ class MemeAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(meme: Meme) {
+            binding.root.animate().cancel()
+            binding.root.alpha = 1f
             Glide.with(binding.imageViewMeme.context)
                 .load(meme.url)
                 .placeholder(R.drawable.ic_placeholder_image)

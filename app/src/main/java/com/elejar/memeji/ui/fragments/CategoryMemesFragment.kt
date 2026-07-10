@@ -8,10 +8,7 @@ import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -51,11 +48,6 @@ class CategoryMemesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCategoryMemesBinding.inflate(inflater, container, false)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.updatePadding(top = insets.top, bottom = insets.bottom)
-            WindowInsetsCompat.CONSUMED
-        }
         return binding.root
     }
 

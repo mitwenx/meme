@@ -23,8 +23,6 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.itemView.alpha = 0f
-        holder.itemView.animate().alpha(1f).duration = 300
     }
 
     // ViewHolder remains largely the same, but uses the updated binding
@@ -34,6 +32,8 @@ class CategoryAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(categoryItem: CategoryItem) {
+            binding.root.animate().cancel()
+            binding.root.alpha = 1f
             binding.textViewCategoryName.text = categoryItem.name
 
             // Improved Glide loading with placeholder and error handling

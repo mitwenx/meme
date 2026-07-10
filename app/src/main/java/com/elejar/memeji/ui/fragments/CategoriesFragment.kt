@@ -2,13 +2,12 @@ package com.elejar.memeji.ui.fragments
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -31,18 +30,13 @@ class CategoriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
-        // Apply window insets for edge-to-edge display
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.updatePadding(top = insets.top, bottom = insets.bottom)
-            WindowInsetsCompat.CONSUMED
-        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupSearch()
         setupRetryButton()
         observeViewModel()
     }
@@ -68,6 +62,17 @@ class CategoriesFragment : Fragment() {
             layoutManager = this@CategoriesFragment.layoutManager
             setHasFixedSize(true)
         }
+    }
+
+    private fun setupSearch() {
+        binding.editTextSearchCategories.setText(viewModel.categorySearchQuery.value.orEmpty())
+        binding.editTextSearchCategories.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.setCategorySearchQuery(s?.toString())
+            }
+        })
     }
 
     private fun observeViewModel() {
